@@ -8,8 +8,6 @@ import axios from "axios";
 import ajv from "../../../inc/ajv";
 import { ErrorObject } from "ajv";
 
-import "mig-schema-form/dist/index.css";
-
 const schema = openApiResolved.components.schemas.Users;
 
 const validate = ajv.compile(schema);

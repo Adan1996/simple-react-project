@@ -6,6 +6,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import UserProvider from "./provider/userContext";
 import "mig-schema-table/dist/index.css";
+import "mig-schema-form/dist/index.css";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement,
