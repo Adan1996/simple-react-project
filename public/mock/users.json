@@ -1,0 +1,42 @@
+[
+  {
+    "userId": 1,
+    "username": "Deddy",
+    "age": 20,
+    "email": "deddy@mail.com",
+    "point": 400,
+    "status": "active",
+    "gender": "male",
+    "savings": 100
+  },
+  {
+    "userId": 2,
+    "username": "Marry",
+    "age": 24,
+    "email": "marry@mail.com",
+    "point": 600,
+    "status": "notActive",
+    "gender": "female",
+    "savings": 200
+  },
+  {
+    "userId": 3,
+    "username": "Udin",
+    "age": 30,
+    "email": "udin@mail.com",
+    "point": 2000,
+    "status": "notActive",
+    "gender": "male",
+    "savings": 400
+  },
+  {
+    "userId": 4,
+    "username": "Joko",
+    "age": 18,
+    "email": "joko@mail.com",
+    "point": 1000,
+    "status": "active",
+    "gender": "male",
+    "savings": 100
+  }
+]

@@ -1,0 +1,10 @@
+.status {
+
+  &-active {
+    background-color: mediumseagreen !important;
+  }
+
+  &-non-active {
+    background-color: red !important;
+  }
+}
