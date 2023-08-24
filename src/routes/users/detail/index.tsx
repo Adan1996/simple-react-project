@@ -16,7 +16,6 @@ const Detail = () => {
   const { userId } = useParams();
   const { users, user, setUser, userErrors, setUserErrors } =
     React.useContext(UserContext);
-  validate(user);
 
   const originalUsers = React.useMemo(() => {
     if (users && userId) {
@@ -42,6 +41,7 @@ const Detail = () => {
   );
 
   const onUpdateHandler = React.useCallback(() => {
+    validate(user);
     const newError: ErrorObject[] = validate.errors || [];
     setUserErrors(newError);
     if (newError.length) {
