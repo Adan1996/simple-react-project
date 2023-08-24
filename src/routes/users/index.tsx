@@ -33,15 +33,19 @@ const Users = () => {
   }, [userErrors, setUsers, users, setUserErrors]);
 
   const benefits = React.useCallback((data: components["schemas"]["Users"]) => {
-    return data.point! >= 2000 ? (
-      <div>Gold</div>
-    ) : data.point! >= 1000 ? (
-      <div>Silver</div>
-    ) : data.point! >= 500 ? (
-      <div>Bronze</div>
-    ) : (
-      <></>
-    );
+    switch (true) {
+      case data.point! >= 2000:
+        return <div>Gold</div>;
+        break;
+      case data.point! >= 1000:
+        return <div>Silver</div>;
+        break;
+      case data.point! >= 500:
+        return <div>Bronze</div>;
+        break;
+      default:
+        return <div></div>;
+    }
   }, []);
 
   const config = React.useMemo<{
