@@ -72,14 +72,9 @@ const Users = () => {
 
   const onRowClassName = React.useCallback(
     (user: components["schemas"]["Users"]) => {
-      const className = [];
-
-      className.push("status");
-      className.push(
-        user.status === "active" ? " status-active" : " status-non-active",
-      );
-
-      return className.join(" ");
+      return user.status === "active"
+        ? "status status-active"
+        : "status status-non-active";
     },
     [],
   );
