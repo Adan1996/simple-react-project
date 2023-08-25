@@ -28,18 +28,28 @@ const Detail = () => {
     return;
   }, [userId, users]);
 
+  React.useEffect(() => {
+    return () => {
+      setUserErrors([]);
+    };
+  }, [setUserErrors]);
+
   const onChangeHandler = React.useCallback(
     (value: components["schemas"]["Users"]) => {
+      if (!users || !userId) {
+        return;
+      }
+
       const newObj = {
         ...originalUsers,
         ...value,
       };
 
-      setUsers(
-        users?.map((el) => {
-          return el.userId === parseInt(userId!) ? { ...el, ...newObj } : el;
-        }),
-      );
+      const newUsers = users.map((el) => {
+        return el.userId === parseInt(userId) ? { ...el, ...newObj } : el;
+      });
+
+      setUsers(newUsers);
     },
     [originalUsers, setUsers, userId, users],
   );

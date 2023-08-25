@@ -30,12 +30,6 @@ const Users = () => {
       setUsers(null);
       getUserData();
     }
-
-    return () => {
-      if (userErrors?.length) {
-        setUserErrors([]);
-      }
-    };
   }, [userErrors, setUsers, users, setUserErrors, getUserData]);
 
   const benefits = React.useCallback((data: components["schemas"]["Users"]) => {
