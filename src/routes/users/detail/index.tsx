@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { UserContext } from "../../../provider/userContext";
 import { SchemaForm } from "mig-schema-form";
 import openApiResolved from "../../../inc/schema";
@@ -14,8 +14,9 @@ const validate = ajv.compile(schema);
 
 const Detail = () => {
   const { userId } = useParams();
-  const { users, user, setUser, userErrors, setUserErrors } =
+  const { users, setUsers, userErrors, setUserErrors } =
     React.useContext(UserContext);
+  const navigate = useNavigate();
 
   const originalUsers = React.useMemo(() => {
     if (users && userId) {
@@ -27,21 +28,28 @@ const Detail = () => {
     return undefined;
   }, [userId, users]);
 
-  React.useEffect(() => {
-    if (originalUsers) {
-      setUser(originalUsers);
-    }
-  }, [originalUsers, setUser]);
-
   const onChangeHandler = React.useCallback(
     (value: components["schemas"]["Users"]) => {
-      setUser(value);
+      if (!originalUsers) {
+        return;
+      }
+
+      const newObj = {
+        ...originalUsers,
+        ...value,
+      };
+
+      setUsers(
+        users?.map((el) => {
+          return el.userId === parseInt(userId!) ? { ...el, ...newObj } : el;
+        }),
+      );
     },
-    [setUser],
+    [originalUsers, setUsers, userId, users],
   );
 
   const onUpdateHandler = React.useCallback(() => {
-    validate(user);
+    validate(originalUsers);
     const newError: ErrorObject[] = validate.errors || [];
     setUserErrors(newError);
     if (newError.length) {
@@ -51,12 +59,12 @@ const Detail = () => {
       .request({
         method: "PUT",
         url: `http://localhost:3001/users/${userId}`,
-        data: user,
+        data: originalUsers,
       })
       .then(() => {
-        window.location.href = "/";
+        navigate("/");
       });
-  }, [setUserErrors, user, userId]);
+  }, [navigate, originalUsers, setUserErrors, userId]);
 
   return (
     <>
@@ -64,7 +72,7 @@ const Detail = () => {
       <SchemaForm
         onChange={onChangeHandler}
         errors={userErrors}
-        value={user}
+        value={originalUsers}
         schema={schema}
       />
       <button className={"btn btn-primary"} onClick={onUpdateHandler}>
