@@ -14,8 +14,7 @@ const schema = openApiResolved.components.schemas.Users;
 
 const Users = () => {
   const { users, setUsers } = React.useContext(UserContext);
-  const [selectedStatus, setSelectedStatus] =
-    React.useState<components["schemas"]["Users"]["status"]>("active");
+  const [selectedStatus, setSelectedStatus] = React.useState<string>("");
   const navigate = useNavigate();
   const properties = schema.properties!.status as oas31.SchemaObject;
 
