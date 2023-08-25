@@ -14,23 +14,29 @@ const Users = () => {
     React.useContext(UserContext);
   const navigate = useNavigate();
 
+  const getUserData = React.useCallback(() => {
+    axios
+      .request({
+        method: "GET",
+        url: `http://localhost:3001/users`,
+      })
+      .then((res) => {
+        setUsers(res.data);
+      });
+  }, [setUsers]);
+
   React.useEffect(() => {
-    if (userErrors?.length) {
-      setUserErrors([]);
+    if (!users) {
+      setUsers(null);
+      getUserData();
     }
 
-    if (users === undefined) {
-      setUsers(null);
-      axios
-        .request({
-          method: "GET",
-          url: `http://localhost:3001/users`,
-        })
-        .then((res) => {
-          setUsers(res.data);
-        });
-    }
-  }, [userErrors, setUsers, users, setUserErrors]);
+    return () => {
+      if (userErrors?.length) {
+        setUserErrors([]);
+      }
+    };
+  }, [userErrors, setUsers, users, setUserErrors, getUserData]);
 
   const benefits = React.useCallback((data: components["schemas"]["Users"]) => {
     switch (true) {

@@ -25,15 +25,11 @@ const Detail = () => {
           user.userId === parseInt(userId),
       );
     }
-    return undefined;
+    return;
   }, [userId, users]);
 
   const onChangeHandler = React.useCallback(
     (value: components["schemas"]["Users"]) => {
-      if (!originalUsers) {
-        return;
-      }
-
       const newObj = {
         ...originalUsers,
         ...value,
@@ -51,10 +47,12 @@ const Detail = () => {
   const onUpdateHandler = React.useCallback(() => {
     validate(originalUsers);
     const newError: ErrorObject[] = validate.errors || [];
-    setUserErrors(newError);
+
     if (newError.length) {
+      setUserErrors(newError);
       return;
     }
+
     axios
       .request({
         method: "PUT",
